@@ -1,0 +1,78 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgres"
+  url      = env("DATABASE_URL")
+}
+
+model MovieGenre {
+  id     Int     @id @default(autoincrement())
+  name   String
+  movies Movie[]
+}
+
+model MovieParentalGuide {
+  id      Int     @id @default(autoincrement())
+  short   String
+  full    String?
+  meaning String?
+  movies  Movie[]
+}
+
+model MovieMediaType {
+  id         Int          @id @default(autoincrement())
+  name       String
+  movieMedia MovieMedia[]
+}
+
+model MovieMedia {
+  id      Int            @id @default(autoincrement())
+  movieId Int
+  typeId  Int
+  link    String
+  movie   Movie          @relation(fields: [movieId], references: [id])
+  type    MovieMediaType @relation(fields: [typeId], references: [id])
+}
+
+model Movie {
+  id               Int                 @id @default(autoincrement())
+  title            String
+  storyline        String?
+  premiere         String?
+  length           String?
+  imdbRating       String?
+  parentalGuideId  Int?
+  youTubeEmbedLink String?
+  posterLink       String?
+  parentalGuide    MovieParentalGuide? @relation(fields: [parentalGuideId], references: [id])
+  media            MovieMedia[]
+  characters       MovieCharacters[]
+  genres           MovieGenre[]
+  directors        Person[]            @relation("directors")
+  stars            Person[]            @relation("stars")
+  writers          Person[]            @relation("writers")
+}
+
+model MovieCharacters {
+  id      Int     @id @default(autoincrement())
+  name    String
+  bio     String?
+  actorId Int
+  actor   Person  @relation(fields: [actorId], references: [id])
+  movie   Movie[]
+}
+
+model Person {
+  id         Int               @id @default(autoincrement())
+  name       String
+  bio        String?
+  photoLink  String?
+  dateBorn   String?
+  dateDied   String?
+  characters MovieCharacters[]
+  directed   Movie[]           @relation("directors")
+  starred    Movie[]           @relation("stars")
+  writen     Movie[]           @relation("writers")
+}

@@ -1,0 +1,29 @@
+@use "./variables";
+
+@mixin h1 {
+  margin: 0;
+  line-height: 1.15;
+  font-size: 4rem;
+}
+
+@mixin h2 {
+  margin: 0 0 1rem 0;
+  font-size: 1.5rem;
+}
+
+@mixin p {
+  font-weight: 600;
+  font-size: 1.115rem;
+  line-height: 1.2;
+}
+
+@mixin input {
+  @include p;
+
+  width: 100%;
+  padding: 0.65rem;
+  border-radius: 5px;
+  border: 1px solid map-get($map: variables.$branding, $key: border);
+
+  font-weight: 500;
+}

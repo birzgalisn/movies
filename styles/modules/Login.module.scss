@@ -1,0 +1,79 @@
+@use "../variables";
+@use "../typography";
+@use "../mixins";
+
+.login {
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+
+  display: flex;
+  align-self: center;
+  flex-direction: column;
+  justify-content: center;
+
+  h1 {
+    text-align: center;
+  }
+
+  &_wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 320px;
+    min-height: calc(100vh - 4rem);
+    margin-top: -4rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  &_continue {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+
+    &_facebook {
+      @include mixins.themable_btn(#fff, #0165e1, #0165e1, #fff);
+    }
+
+    &_apple {
+      @include mixins.themable_btn(#fff, #000, #000, #fff);
+    }
+  }
+
+  &_email {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+
+    &_group {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 1rem;
+
+      label {
+        @include typography.p;
+        text-transform: uppercase;
+      }
+
+      input {
+        @include typography.input;
+      }
+    }
+
+    button {
+      @include mixins.themable_btn(#000, #fff, #fff, #000);
+    }
+  }
+}
+
+hr.line {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid map-get($map: variables.$branding, $key: border);
+  margin: 1.75rem 0;
+}

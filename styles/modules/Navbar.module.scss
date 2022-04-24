@@ -1,0 +1,155 @@
+@use "../variables";
+
+.navbar {
+  width: 100%;
+
+  margin-left: auto;
+  margin-right: auto;
+
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  height: 100%;
+
+  @media screen and (min-width: 48em) {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  &_wrapper {
+    width: 100%;
+    height: 4rem;
+
+    z-index: 4;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+
+    background-color: hsla(0, 0%, 100%, 0.8);
+    border-bottom: 1px solid map-get($map: variables.$branding, $key: border);
+  }
+
+  &_content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    padding-left: 0;
+
+    @media screen and (min-width: 48em) {
+      padding: 1.5rem;
+      padding-left: 1.5rem;
+    }
+
+    & > div {
+      flex: 1;
+    }
+
+    &_start {
+      display: flex;
+      justify-content: flex-start;
+
+      a {
+        font-family: "Montserrat", sans-serif;
+      }
+    }
+
+    &_center {
+      display: none;
+      appearance: none;
+
+      &_icon {
+        font-size: 1.5rem;
+      }
+
+      @media screen and (min-width: 48em) {
+        display: flex;
+        justify-content: center;
+      }
+    }
+
+    &_end {
+      display: none;
+      appearance: none;
+
+      &_icon {
+        font-size: 1.5rem;
+      }
+
+      @media screen and (min-width: 48em) {
+        display: flex;
+        justify-content: flex-end;
+      }
+    }
+  }
+}
+
+.mobile {
+  &_navbar {
+    display: inline-flex;
+    gap: 1rem;
+    max-width: max-content;
+
+    button {
+      background: none;
+      color: inherit;
+      border: none;
+      padding: 0;
+      font: inherit;
+      cursor: pointer;
+      outline: inherit;
+
+      svg {
+        font-size: 1.5rem;
+      }
+    }
+
+    @media screen and (min-width: 48em) {
+      display: none;
+      appearance: none;
+    }
+  }
+
+  &_portal {
+    width: 100vw;
+    height: 100vh;
+
+    position: fixed;
+    left: 0px;
+    top: 0px;
+
+    &_wrapper {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      right: 0px;
+      z-index: 5;
+    }
+
+    &_content {
+      width: 100%;
+      max-width: 20rem;
+      height: 100vh;
+
+      position: absolute;
+      z-index: 6;
+      left: 0px;
+      top: 0px;
+
+      background-color: #fff;
+
+      box-shadow: rgba(0, 0, 0, 0.1) 0px 7px 14px 0px,
+        rgba(0, 0, 0, 0.07) 0px 3px 6px 0px;
+      transform: translateX(0%);
+    }
+
+    &_close {
+      width: 100%;
+      height: 100%;
+
+      background-color: hsla(0, 100%, 0%, 0.4);
+    }
+  }
+}
