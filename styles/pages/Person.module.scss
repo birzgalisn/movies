@@ -1,0 +1,100 @@
+@use "../variables";
+@use "../typography";
+@use "../colors";
+@use "../mixins";
+
+.person {
+  width: 100%;
+
+  &_wrapper {
+    max-width: 1024px;
+    min-height: calc(100vh - variables.$navbar-height);
+    margin-left: auto;
+    margin-right: auto;
+    padding: variables.$spacer;
+  }
+
+  h1 {
+    @include typography.h1;
+  }
+
+  &_grid {
+    display: inline-grid;
+    grid-template-areas:
+      "image bio"
+      "age   age";
+    gap: variables.$spacer;
+
+    @include mixins.respond-to("sm") {
+      grid-template-areas:
+        "image bio"
+        "image age";
+    }
+  }
+
+  &_image {
+    grid-area: image;
+    width: 100%;
+    min-width: 133px;
+
+    img {
+      width: 100%;
+      border-radius: variables.$radius-card;
+    }
+
+    @include mixins.respond-to("sm") {
+      min-width: 163px;
+    }
+  }
+
+  &_bio {
+    grid-area: bio;
+
+    h2 {
+      @include typography.h2;
+      margin-top: 0;
+    }
+
+    p {
+      @include typography.body;
+      width: auto;
+      margin: 0;
+      overflow: hidden;
+      text-align: justify;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 7;
+      line-clamp: 7;
+      -webkit-box-orient: vertical;
+
+      @include mixins.respond-to("sm") {
+        -webkit-line-clamp: 5;
+        line-clamp: 5;
+      }
+    }
+  }
+
+  &_age {
+    grid-area: age;
+    display: flex;
+    flex-direction: row;
+
+    & > div {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      justify-content: flex-start;
+    }
+
+    h3 {
+      @include typography.h3;
+      margin-top: 0;
+    }
+
+    p {
+      @include typography.body;
+      width: auto;
+      margin: 0;
+    }
+  }
+}

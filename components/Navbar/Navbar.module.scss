@@ -1,23 +1,24 @@
-@use "../variables";
+@use "../../styles/variables";
+@use "../../styles/mixins";
+@use "../../styles/colors";
 
 .navbar {
   width: 100%;
-
+  height: 100%;
   margin-left: auto;
   margin-right: auto;
 
-  padding-left: 0.75rem;
-  padding-right: 0.75rem;
-  height: 100%;
+  padding-left: (variables.$spacer / 2);
+  padding-right: (variables.$spacer / 2);
 
-  @media screen and (min-width: 48em) {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
+  @include mixins.respond-to("sidebar") {
+    padding-left: variables.$spacer;
+    padding-right: variables.$spacer;
   }
 
   &_wrapper {
     width: 100%;
-    height: 4rem;
+    height: variables.$navbar-height;
 
     z-index: 4;
     position: fixed;
@@ -26,7 +27,7 @@
     right: 0px;
 
     background-color: hsla(0, 0%, 100%, 0.8);
-    border-bottom: 1px solid map-get($map: variables.$branding, $key: border);
+    border-bottom: 1px solid colors.$border;
   }
 
   &_content {
@@ -38,9 +39,9 @@
     padding: 0;
     padding-left: 0;
 
-    @media screen and (min-width: 48em) {
-      padding: 1.5rem;
-      padding-left: 1.5rem;
+    @include mixins.respond-to("sidebar") {
+      padding: variables.$spacer;
+      padding-left: variables.$spacer;
     }
 
     & > div {
@@ -64,7 +65,7 @@
         font-size: 1.5rem;
       }
 
-      @media screen and (min-width: 48em) {
+      @include mixins.respond-to("sidebar") {
         display: flex;
         justify-content: center;
       }
@@ -78,7 +79,7 @@
         font-size: 1.5rem;
       }
 
-      @media screen and (min-width: 48em) {
+      @include mixins.respond-to("sidebar") {
         display: flex;
         justify-content: flex-end;
       }
@@ -89,7 +90,7 @@
 .mobile {
   &_navbar {
     display: inline-flex;
-    gap: 1rem;
+    gap: variables.$spacer;
     max-width: max-content;
 
     button {
@@ -106,7 +107,7 @@
       }
     }
 
-    @media screen and (min-width: 48em) {
+    @include mixins.respond-to("sidebar") {
       display: none;
       appearance: none;
     }
@@ -138,10 +139,9 @@
       left: 0px;
       top: 0px;
 
-      background-color: #fff;
+      background-color: colors.$light;
 
-      box-shadow: rgba(0, 0, 0, 0.1) 0px 7px 14px 0px,
-        rgba(0, 0, 0, 0.07) 0px 3px 6px 0px;
+      @include mixins.shadow("md");
       transform: translateX(0%);
     }
 

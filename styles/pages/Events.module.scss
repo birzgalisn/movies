@@ -1,0 +1,66 @@
+@use "../variables";
+@use "../mixins";
+@use "../colors";
+@use "../typography";
+
+.events {
+  margin-top: variables.$navbar-height;
+
+  @include mixins.respond-to("sidebar") {
+    padding-left: 18rem;
+  }
+
+  &_sidebar_wrapper {
+    display: none;
+
+    width: 100%;
+    max-width: 18rem;
+    height: 100%;
+
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+
+    background-color: colors.$light;
+
+    @include mixins.respond-to("sidebar") {
+      display: block;
+    }
+  }
+
+  &_wrapper {
+    min-height: calc(100vh - variables.$navbar-height);
+  }
+
+  &_content {
+    width: 100%;
+    max-width: 1024px;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    padding: variables.$spacer;
+
+    h1 {
+      @include typography.h1;
+    }
+
+    &_grid {
+      display: inline-grid;
+      grid-template-columns: repeat(1, 1fr);
+      grid-auto-rows: 1fr;
+      gap: variables.$spacer;
+      justify-items: center;
+      width: 100%;
+
+      @include mixins.respond-to("sm") {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      @include mixins.respond-to("lg") {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  }
+}

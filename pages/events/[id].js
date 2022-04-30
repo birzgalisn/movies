@@ -1,21 +1,16 @@
+import { format, parseISO } from "date-fns";
 import Head from "next/head";
 import Image from "next/image";
 import { HiStar } from "react-icons/hi";
 import CharacterCard from "../../components/CharacterCard";
-import db from "../../lib/db";
-import { getFirstSentence } from "../../lib/helper";
-import styles from "../../styles/modules/Event.module.scss";
+import LinkPersons from "../../components/LinkPersons";
+import { getFirstSentence, serialize } from "../../lib/helper";
+import styles from "../../styles/pages/Event.module.scss";
+import { getEventsPaths } from "../api/events/paths";
+import { getEvent } from "../api/events/[id]";
 
 export const getStaticPaths = async () => {
-  const movies = await db.movie.findMany({
-    select: {
-      id: true,
-    },
-  });
-
-  const paths = movies.map((movie) => ({
-    params: { id: movie.id.toString() },
-  }));
+  const paths = await getEventsPaths();
 
   return {
     paths,
@@ -24,26 +19,12 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps = async (ctx) => {
-  const movie = await db.movie.findFirst({
-    where: {
-      id: parseInt(ctx.params.id),
-    },
-    include: {
-      parentalGuide: true,
-      genres: true,
-      directors: true,
-      writers: true,
-      stars: true,
-      characters: {
-        include: {
-          actor: true,
-        },
-      },
-    },
-  });
+  const movie = await getEvent(ctx.params.id);
 
   return {
-    props: { movie },
+    props: {
+      movie: serialize(movie),
+    },
   };
 };
 
@@ -51,7 +32,10 @@ const Event = ({ movie }) => {
   return (
     <>
       <Head>
-        <title>_CINEMA &bull; {movie.title}</title>
+        <title>
+          _CINEMA &bull; {movie.title} (
+          {format(parseISO(movie.premiere), "yyyy")})
+        </title>
         <meta name="description" content={getFirstSentence(movie.storyline)} />
       </Head>
 
@@ -68,7 +52,7 @@ const Event = ({ movie }) => {
                 objectFit="cover"
               />
               <iframe
-                src={movie.youTubeEmbedLink}
+                src={movie.trailerEmbedLink}
                 title={`${movie.title} trailer`}
                 frameBorder="0"
                 allowFullScreen
@@ -77,8 +61,8 @@ const Event = ({ movie }) => {
           </div>
           <div className={styles.event_about}>
             <p>
-              {movie.premiere} &bull; {movie.parentalGuide.short} &bull;{" "}
-              {movie.length}
+              {format(parseISO(movie.premiere), "MMMM d, yyyy")} &bull;{" "}
+              {movie.parentalGuide.short} &bull; {movie.length}
             </p>
             <div className={styles.event_about_rating}>
               <p>IMDb rating</p>
@@ -103,17 +87,17 @@ const Event = ({ movie }) => {
           <div className={styles.event_general}>
             <div className={styles.event_general_section}>
               <h2>Directors</h2>
-              <span>{movie.directors.map(({ name }) => name).join(", ")}</span>
+              <LinkPersons persons={movie.directors} />
             </div>
             <hr className={styles.line} />
             <div className={styles.event_general_section}>
               <h2>Writers</h2>
-              <span>{movie.writers.map(({ name }) => name).join(", ")}</span>
+              <LinkPersons persons={movie.writers} />
             </div>
             <hr className={styles.line} />
             <div className={styles.event_general_section}>
               <h2>Stars</h2>
-              <span>{movie.stars.map(({ name }) => name).join(", ")}</span>
+              <LinkPersons persons={movie.stars} />
             </div>
           </div>
           <hr className={styles.line} />

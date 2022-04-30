@@ -1,11 +1,12 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import {
   HiFilm,
   HiOutlineHome,
   HiOutlineLogin,
   HiOutlineSparkles,
 } from "react-icons/hi";
-import styles from "../styles/modules/Sidebar.module.scss";
+import styles from "./Sidebar.module.scss";
 
 const fetchImFeelingLucky = async () => {
   const res = await fetch("/api/imfeelinglucky");
@@ -13,9 +14,11 @@ const fetchImFeelingLucky = async () => {
 };
 
 const Sidebar = () => {
+  const router = useRouter();
+
   const imFeelingLucky = async () => {
     const res = await fetchImFeelingLucky();
-    window.location.replace(`/events/${res.id}`);
+    router.push(`/events/${res.id}`);
   };
 
   return (

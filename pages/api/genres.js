@@ -1,6 +1,6 @@
 import db from "../../lib/db";
 
-const handler = async (req, res) => {
+export const getGenres = async () => {
   const genres = await db.movieGenre.findMany({
     select: {
       id: true,
@@ -8,7 +8,11 @@ const handler = async (req, res) => {
     },
   });
 
-  res.status(200).json({ genres });
+  return genres;
 };
 
-export default handler;
+export default async function genresHandler(req, res) {
+  const genres = await getGenres();
+
+  res.status(200).json({ genres });
+}

@@ -29,38 +29,38 @@ model MovieMediaType {
 
 model MovieMedia {
   id      Int            @id @default(autoincrement())
-  movieId Int
-  typeId  Int
   link    String
   movie   Movie          @relation(fields: [movieId], references: [id])
+  movieId Int
   type    MovieMediaType @relation(fields: [typeId], references: [id])
+  typeId  Int
 }
 
 model Movie {
   id               Int                 @id @default(autoincrement())
   title            String
-  storyline        String?
-  premiere         String?
-  length           String?
-  imdbRating       String?
-  parentalGuideId  Int?
-  youTubeEmbedLink String?
   posterLink       String?
-  parentalGuide    MovieParentalGuide? @relation(fields: [parentalGuideId], references: [id])
-  media            MovieMedia[]
-  characters       MovieCharacters[]
+  trailerEmbedLink String?
+  storyline        String?
+  premiere         DateTime?
+  length           String?
   genres           MovieGenre[]
+  parentalGuide    MovieParentalGuide? @relation(fields: [parentalGuideId], references: [id])
+  parentalGuideId  Int?
+  imdbRating       Decimal?
   directors        Person[]            @relation("directors")
-  stars            Person[]            @relation("stars")
   writers          Person[]            @relation("writers")
+  stars            Person[]            @relation("stars")
+  characters       MovieCharacters[]
+  media            MovieMedia[]
 }
 
 model MovieCharacters {
   id      Int     @id @default(autoincrement())
   name    String
   bio     String?
-  actorId Int
   actor   Person  @relation(fields: [actorId], references: [id])
+  actorId Int
   movie   Movie[]
 }
 
@@ -69,10 +69,10 @@ model Person {
   name       String
   bio        String?
   photoLink  String?
-  dateBorn   String?
-  dateDied   String?
+  dateBorn   DateTime?
+  dateDied   DateTime?
   characters MovieCharacters[]
   directed   Movie[]           @relation("directors")
   starred    Movie[]           @relation("stars")
-  writen     Movie[]           @relation("writers")
+  written    Movie[]           @relation("writers")
 }

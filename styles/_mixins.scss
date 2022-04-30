@@ -1,58 +1,69 @@
-@use "./typography";
+@use "./variables";
 
-@mixin reset_btn {
-  background: none;
-  color: inherit;
-  border: none;
-  padding: 0;
-  font: inherit;
-  cursor: pointer;
-  outline: inherit;
+@mixin respond-to($breakpoint) {
+  $raw-query: map-get(variables.$breakpoints, $breakpoint);
+
+  @if $raw-query {
+    $query: if(
+      type-of($raw-query) == "string",
+      unquote($raw-query),
+      inspect($raw-query)
+    );
+
+    @media #{$query} {
+      @content;
+    }
+  } @else {
+    @error 'No value found for `#{$breakpoint}`. '
+         + 'Please make sure it is defined in `$breakpoints` map.';
+  }
 }
 
-@mixin themable_btn($text, $bg, $text-h, $bg-h) {
-  @include reset_btn;
-  @include typography.p;
+@mixin size($width, $height: $width) {
+  width: $width;
+  height: $height;
+}
 
-  color: $text;
-  white-space: nowrap;
+@mixin shadow($shadow) {
+  $raw-shadow: map-get(variables.$shadows, $shadow);
 
-  background-color: $bg;
-  border: 1px solid $text;
-  border-radius: 5px;
+  @if $raw-shadow {
+    $shadow-exists: if(
+      type-of($raw-shadow) == "string",
+      unquote($raw-shadow),
+      inspect($raw-shadow)
+    );
 
-  outline: currentcolor none medium;
-
-  width: 100%;
-  min-width: 2.5rem;
-  height: 2.5rem;
-  min-height: 40px;
-
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  vertical-align: middle;
-  padding: 1.25rem 1.5rem;
-
-  appearance: none;
-  user-select: none;
-  transition: all 250ms ease 0s;
-
-  &:hover {
-    color: $text-h;
-    background-color: $bg-h;
-    border: 1px solid $text-h;
+    @media #{$shadow-exists} {
+      @content;
+    }
+  } @else {
+    @error 'No value found for `#{$shadow}`. '
+         + 'Please make sure it is defined in `$shadows` map.';
   }
+}
 
-  svg {
-    font-size: 1.5rem;
-    color: currentColor;
-    display: inline-block;
-    vertical-align: middle;
-    margin-left: -0.25rem;
-    margin-right: 0.5rem;
-    flex-shrink: 0;
-    backface-visibility: hidden;
+@mixin center($position) {
+  position: absolute;
+
+  @if $position == "vertical" {
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+  } @else if $position == "horizontal" {
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translate(-50%);
+  } @else if $position == "both" {
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  } @else {
+    @error 'No value found for `#{$position}`. '
+         + 'Please make sure it is supported.';
   }
 }

@@ -1,0 +1,13 @@
+@use "../../styles/colors";
+@use "../../styles/typography";
+
+.link {
+  @include typography.body;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: colors.$primary;
+    text-decoration: underline;
+  }
+}

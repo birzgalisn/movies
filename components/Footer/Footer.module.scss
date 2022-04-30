@@ -1,12 +1,16 @@
-@use "../variables";
+@use "../../styles/colors";
+@use "../../styles/typography";
 
 .footer {
+  max-height: 4rem;
   display: flex;
   flex: 1;
   padding: 2rem 0;
-  border-top: 1px solid map-get($map: variables.$branding, $key: border);
+  border-top: 1px solid colors.$border;
   justify-content: center;
   align-items: center;
+
+  @include typography.body;
 
   a {
     display: flex;
@@ -17,6 +21,7 @@
 }
 
 .logo {
-  height: 1em;
+  text-transform: uppercase;
+  font-weight: 600;
   margin-left: 0.5rem;
 }

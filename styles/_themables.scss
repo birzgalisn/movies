@@ -1,0 +1,64 @@
+@use "./resets";
+@use "./variables";
+@use "./colors";
+
+@mixin button($filled: true, $bg: colors.$dark, $invert: true) {
+  @include resets.button;
+
+  border-radius: variables.$radius-button;
+  border-width: 1px;
+  border-style: solid;
+
+  @if $filled {
+    color: colors.$light;
+    background-color: $bg;
+    border-color: $bg;
+  } @else {
+    color: lighten($color: colors.$dark, $amount: 35%);
+    background-color: colors.$light;
+    border-color: colors.$border;
+  }
+
+  outline: currentcolor none medium;
+  white-space: nowrap;
+
+  width: 100%;
+  min-width: 2.5rem;
+  height: 2.5rem;
+  min-height: 40px;
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  padding: (variables.$spacer / 2);
+
+  appearance: none;
+  user-select: none;
+  transition: all 250ms ease 0s;
+
+  &:hover {
+    @if $filled and $invert {
+      color: $bg;
+      background-color: colors.$light;
+    } @else if $filled {
+      background-color: lighten($color: $bg, $amount: 20%);
+      border-color: lighten($color: $bg, $amount: 30%);
+    } @else {
+      color: $bg;
+      border-color: $bg;
+    }
+  }
+
+  svg {
+    font-size: 1.5rem;
+    color: currentColor;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: -0.25rem;
+    margin-right: 0.5rem;
+    flex-shrink: 0;
+    backface-visibility: hidden;
+  }
+}

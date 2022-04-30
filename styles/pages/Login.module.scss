@@ -1,28 +1,26 @@
 @use "../variables";
 @use "../typography";
 @use "../mixins";
+@use "../themables";
+@use "../colors";
 
 .login {
   width: 100%;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  margin-top: -(variables.$navbar-height);
+  @include mixins.center(vertical);
 
   display: flex;
   align-self: center;
   flex-direction: column;
   justify-content: center;
-
-  h1 {
-    text-align: center;
-  }
+  text-align: center;
 
   &_wrapper {
     position: relative;
     width: 100%;
     max-width: 320px;
-    min-height: calc(100vh - 4rem);
-    margin-top: -4rem;
+    min-height: calc(100vh - variables.$navbar-height);
+    margin-top: variables.$navbar-height;
     margin-left: auto;
     margin-right: auto;
   }
@@ -30,35 +28,33 @@
   &_continue {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: (variables.$spacer / 2);
     width: 100%;
 
     &_facebook {
-      @include mixins.themable_btn(#fff, #0165e1, #0165e1, #fff);
+      @include themables.button($filled: true, $bg: #4267b2, $invert: false);
     }
 
     &_apple {
-      @include mixins.themable_btn(#fff, #000, #000, #fff);
+      @include themables.button($filled: true, $invert: false);
     }
   }
 
   &_email {
+    width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    width: 100%;
+    gap: (variables.$spacer / 2);
 
     &_group {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
       justify-content: center;
-      gap: 1rem;
+      gap: (variables.$spacer / 2);
 
-      label {
-        @include typography.p;
-        text-transform: uppercase;
-      }
+      @include typography.body;
+      text-transform: uppercase;
 
       input {
         @include typography.input;
@@ -66,7 +62,7 @@
     }
 
     button {
-      @include mixins.themable_btn(#000, #fff, #fff, #000);
+      @include themables.button($filled: false);
     }
   }
 }
@@ -74,6 +70,6 @@
 hr.line {
   width: 100%;
   border: none;
-  border-bottom: 1px solid map-get($map: variables.$branding, $key: border);
-  margin: 1.75rem 0;
+  border-bottom: 1px solid colors.$border;
+  margin: variables.$spacer 0;
 }

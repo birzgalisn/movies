@@ -1,9 +1,48 @@
-$branding: (
-  primary: #0070f3,
-  secondary: #36a420,
-  dark: #000000,
-  light: #fafafa,
-  gray: #35353f,
-  code: #fafafa,
-  border: #eaeaea,
+$navbar-height: 4rem;
+
+$radius-button: 5px;
+$radius-card: 10px;
+
+$padding-button: 1.5rem;
+$padding-card: 1.5rem;
+
+$spacer: 1.5rem;
+
+$breakpoints: (
+  "xs": (
+    min-width: 300px,
+  ),
+  "sm": (
+    min-width: 640px,
+  ),
+  "md": (
+    min-width: 768px,
+  ),
+  "lg": (
+    min-width: 1024px,
+  ),
+  "xl": (
+    min-width: 1280px,
+  ),
+  "2xl": (
+    min-width: 1536px,
+  ),
+  "sidebar": (
+    min-width: 48rem,
+  ),
+  "characterCard": (
+    min-width: 476px,
+  ),
+);
+
+$shadows: (
+  "sm": (
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px,
+  ),
+  "md": (
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px,
+  ),
+  "lg": (
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px,
+  ),
 );

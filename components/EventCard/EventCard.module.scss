@@ -1,0 +1,43 @@
+@use "../../styles/variables";
+@use "../../styles/colors";
+@use "../../styles/typography";
+
+.card {
+  padding: 1.5rem;
+  text-align: left;
+  text-decoration: none;
+
+  width: 100%;
+  min-width: 0;
+  // max-width: 316px;
+  height: 100%;
+
+  border: 1px solid colors.$border;
+  border-radius: variables.$radius-card;
+  transition: color 0.15s ease, border-color 0.15s ease;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: colors.$primary;
+    border-color: colors.$primary;
+  }
+
+  img {
+    border-radius: variables.$radius-card;
+  }
+
+  h2 {
+    @include typography.h3;
+  }
+
+  p {
+    @include typography.body;
+
+    margin: 0;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: inherit;
+  }
+}

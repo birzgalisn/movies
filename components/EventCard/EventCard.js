@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import styles from "../styles/modules/EventCard.module.scss";
+import styles from "./EventCard.module.scss";
 
 const EventCard = ({ movie }) => {
   return (
@@ -11,6 +11,7 @@ const EventCard = ({ movie }) => {
           alt={`${movie.title} poster`}
           width={9}
           height={16}
+          objectFit="cover"
           layout="responsive"
         />
         <h2>{movie.title}&nbsp;&rarr;</h2>

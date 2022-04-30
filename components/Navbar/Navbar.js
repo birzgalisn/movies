@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { useState } from "react";
 import { HiFilm, HiOutlineLogin, HiOutlineMenu } from "react-icons/hi";
-import styles from "../styles/modules/Navbar.module.scss";
-import Sidebar from "./Sidebar";
+import Sidebar from "../Sidebar";
+import styles from "./Navbar.module.scss";
 
 const Navbar = () => {
   const [isMobileOpen, setIsMobileOpen] = useState(false);

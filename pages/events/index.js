@@ -1,18 +1,11 @@
 import Head from "next/head";
 import EventCard from "../../components/EventCard";
 import Sidebar from "../../components/Sidebar";
-import db from "../../lib/db";
-import styles from "../../styles/modules/Events.module.scss";
+import styles from "../../styles/pages/Events.module.scss";
+import { getEvents } from "../api/events";
 
 export const getStaticProps = async () => {
-  const movies = await db.movie.findMany({
-    select: {
-      id: true,
-      title: true,
-      storyline: true,
-      posterLink: true,
-    },
-  });
+  const movies = await getEvents();
 
   return {
     props: { movies },

@@ -2,7 +2,7 @@ import Head from "next/head";
 import { useState } from "react";
 import { FaApple, FaFacebookF } from "react-icons/fa";
 import { HiOutlineLockClosed, HiOutlineLockOpen } from "react-icons/hi";
-import styles from "../styles/modules/Login.module.scss";
+import styles from "../styles/pages/Login.module.scss";
 
 const Login = () => {
   const [open, setOpen] = useState(false);
