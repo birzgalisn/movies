@@ -1,6 +1,6 @@
 import db from "../../../lib/db";
 
-export const getEventsPaths = async () => {
+export async function getEventPaths() {
   const movies = await db.movie.findMany({
     select: {
       id: true,
@@ -12,10 +12,9 @@ export const getEventsPaths = async () => {
   }));
 
   return paths;
-};
+}
 
-export default async function eventsPathsHandler(req, res) {
-  const paths = await getEventsPaths();
-
+export default async function handler(_, res) {
+  const paths = await getEventPaths();
   res.status(200).json(paths);
 }

@@ -1,6 +1,6 @@
 import db from "../../../lib/db";
 
-export const getPerson = async (id) => {
+export async function getPerson(id) {
   const selectMovieInfo = {
     select: {
       id: true,
@@ -33,10 +33,9 @@ export const getPerson = async (id) => {
   });
 
   return actor;
-};
+}
 
-export default async function personHandler(req, res) {
+export default async function handler(req, res) {
   const person = await getPerson(req.query.id);
-
   res.status(200).json(person);
 }

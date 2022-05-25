@@ -3,29 +3,27 @@ import Head from "next/head";
 import Image from "next/image";
 import { getFirstSentence, serialize } from "../../lib/helper";
 import styles from "../../styles/pages/Person.module.scss";
-import { getPersonsPaths } from "../api/persons/paths";
+import { getPersonPaths } from "../api/persons/paths";
 import { getPerson } from "../api/persons/[id]";
 
-export const getStaticPaths = async () => {
-  const paths = await getPersonsPaths();
-
+export async function getStaticPaths() {
+  const paths = await getPersonPaths();
   return {
     paths,
     fallback: false,
   };
-};
+}
 
-export const getStaticProps = async (ctx) => {
-  const person = await getPerson(ctx.params.id);
-
+export async function getStaticProps(context) {
+  const person = await getPerson(context.params.id);
   return {
     props: {
       person: serialize(person),
     },
   };
-};
+}
 
-const Person = ({ person }) => {
+export default function Person({ person }) {
   return (
     <>
       <Head>
@@ -76,6 +74,4 @@ const Person = ({ person }) => {
       </div>
     </>
   );
-};
-
-export default Person;
+}

@@ -4,7 +4,7 @@ import styles from "./EventCard.module.scss";
 
 const EventCard = ({ movie }) => {
   return (
-    <Link href={`/events/${movie.id}`}>
+    <Link href={`/events/${movie.id}`} passHref>
       <a className={styles.card}>
         <Image
           src={movie.posterLink}

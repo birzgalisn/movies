@@ -1,0 +1,43 @@
+.dots {
+  display: inline-flex;
+  vertical-align: middle;
+  margin-top: -0.25rem;
+  margin-left: -0.25rem;
+  margin-right: 0.5rem;
+  flex-shrink: 0;
+  backface-visibility: hidden;
+
+  & > span {
+    width: 5px;
+    height: 5px;
+    display: block;
+    background: currentColor;
+    border-radius: 50%;
+    position: relative;
+    margin: 0 2px;
+  }
+
+  &_1 {
+    animation: wave 1s linear 0s infinite;
+  }
+
+  &_2 {
+    animation: wave 1s linear 0.33s infinite;
+  }
+
+  &_3 {
+    animation: wave 1s linear 0.66s infinite;
+  }
+
+  @keyframes wave {
+    0% {
+      top: 0;
+    }
+    50% {
+      top: 4px;
+    }
+    100% {
+      top: 0;
+    }
+  }
+}

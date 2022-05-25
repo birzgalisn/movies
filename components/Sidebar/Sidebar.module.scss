@@ -12,122 +12,43 @@
 
   &_content {
     height: calc(100vh - variables.$navbar-height);
-
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-
     font-size: 0.875rem;
-
     padding: variables.$spacer;
   }
 
   &_links {
+    flex: 1;
     display: flex;
     flex-direction: column;
-    margin-bottom: 2rem;
-
-    a {
-      display: flex;
-      cursor: pointer;
-      padding: 0.25rem 0.5rem;
-      transition: all 0.2s ease 0s;
-
-      @include typography.body;
-
-      outline: currentcolor none medium;
-      color: colors.$dark;
-
-      &:hover {
-        background-color: colors.$light;
-        border-radius: 5px;
-      }
-
-      div {
-        display: flex;
-        align-items: center;
-        padding: 0.25rem;
-
-        svg {
-          font-size: 1.5rem;
-          margin-right: (variables.$spacer / 2);
-        }
-      }
-    }
+    justify-content: flex-start;
   }
 
-  &_filter {
+  &_genres {
+    flex: 1;
     display: flex;
-    flex-direction: column;
-    margin-bottom: 2rem;
+    align-items: center;
 
     &_select {
-      margin-bottom: 2rem;
+      width: 100%;
 
       p {
-        margin: 0px;
+        @include typography.body;
+        margin: 0;
         margin-bottom: 0.5rem;
-        font-weight: 700;
-      }
-
-      div {
-        position: relative;
-        width: 100%;
-
-        select {
-          position: relative;
-
-          width: 100%;
-          height: 2.5rem;
-
-          display: flex;
-          align-items: center;
-
-          font-size: 1rem;
-          line-height: normal;
-
-          padding-left: 1rem;
-          padding-right: 2rem;
-          padding-bottom: 1px;
-
-          background-color: colors.$light;
-          border: 1px solid colors.$border;
-          border-radius: 5px;
-
-          transition: all 0.2s ease 0s;
-          appearance: none;
-        }
-
-        div {
-          width: 1.5rem;
-          height: 100%;
-          right: 0.5rem;
-          top: 50%;
-
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-
-          position: absolute;
-          z-index: 2;
-
-          pointer-events: none;
-          transform: translateY(-50%);
-
-          svg {
-            font-size: 1.25rem;
-            display: inline-block;
-            vertical-align: middle;
-            flex-shrink: 0;
-            backface-visibility: hidden;
-            color: colors.$gray;
-          }
-        }
       }
     }
   }
 
-  &_button {
-    @include themables.button($filled: true);
+  &_lucky {
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+
+    button {
+      @include themables.button($filled: true);
+    }
   }
 }

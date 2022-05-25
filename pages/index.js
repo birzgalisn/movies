@@ -2,7 +2,7 @@ import Head from "next/head";
 import Link from "next/link";
 import styles from "../styles/pages/Home.module.scss";
 
-const Home = () => {
+export default function Home() {
   return (
     <>
       <Head>
@@ -19,7 +19,7 @@ const Home = () => {
           <h1>
             Welcome to{" "}
             <Link href={"/events"}>
-              <a>_FILMS</a>
+              <a>_CINEMA</a>
             </Link>
             !
           </h1>
@@ -33,6 +33,4 @@ const Home = () => {
       </div>
     </>
   );
-};
-
-export default Home;
+}

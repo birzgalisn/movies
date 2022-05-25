@@ -1,6 +1,6 @@
 import db from "../../../lib/db";
 
-export const getEvent = async (id) => {
+export async function getEvent(id) {
   const selectPersonInfo = {
     select: {
       id: true,
@@ -47,10 +47,9 @@ export const getEvent = async (id) => {
   });
 
   return event;
-};
+}
 
-export default async function eventHandler(req, res) {
+export default async function handler(req, res) {
   const event = await getEvent(req.query.id);
-
   res.status(200).json(event);
 }

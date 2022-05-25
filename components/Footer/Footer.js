@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <footer className={styles.footer_wrapper}>
       <div className={styles.footer}>
-        <Link href={"/"}>
+        <Link href={"/"} passHref>
           <a>
             Powered by <span className={styles.logo}>_CINEMA</span>
           </a>

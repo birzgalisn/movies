@@ -1,27 +1,12 @@
 @use "./variables";
 @use "./colors";
 
-$font-primary: "Roboto", sans-serif;
+$font-primary: "Montserrat", sans-serif;
 $font-secondary: Arial, Helvetica, sans-serif;
 
 @mixin body {
   font-size: 1em;
   line-height: 1.375em;
-
-  p,
-  b,
-  strong,
-  i,
-  em,
-  mark,
-  small,
-  del,
-  ins,
-  sub,
-  sup {
-    font-size: 1em;
-    line-height: 1.375em;
-  }
 }
 
 @mixin h1 {
@@ -56,6 +41,4 @@ $font-secondary: Arial, Helvetica, sans-serif;
   padding: (variables.$spacer / 3);
   border-radius: variables.$radius-button;
   border: 1px solid colors.$border;
-
-  font-weight: 500;
 }

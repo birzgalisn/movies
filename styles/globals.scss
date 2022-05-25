@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+@use "./typography";
 
 html,
 body {
@@ -9,6 +9,8 @@ body {
 }
 
 a {
+  @include typography.body;
+
   color: inherit;
   text-decoration: none;
 }

@@ -4,10 +4,10 @@ import { FaApple, FaFacebookF } from "react-icons/fa";
 import { HiOutlineLockClosed, HiOutlineLockOpen } from "react-icons/hi";
 import styles from "../styles/pages/Login.module.scss";
 
-const Login = () => {
-  const [open, setOpen] = useState(false);
+export default function Login() {
+  const [isEmailFormOpen, setIsEmailFormOpen] = useState(false);
 
-  const handleSubmit = (event) => {
+  const handleEmailLogin = (event) => {
     event.preventDefault();
   };
 
@@ -34,8 +34,8 @@ const Login = () => {
 
           <hr className={styles.line} />
 
-          <form className={styles.login_email} onSubmit={handleSubmit}>
-            {open && (
+          <form className={styles.login_email} onSubmit={handleEmailLogin}>
+            {isEmailFormOpen && (
               <div className={styles.login_email_group}>
                 <label htmlFor="email">Email</label>
                 <input
@@ -48,10 +48,14 @@ const Login = () => {
             )}
 
             <button
-              type={open ? "button" : "submit"}
-              onClick={() => setOpen((prev) => !prev)}
+              type={isEmailFormOpen ? "button" : "submit"}
+              onClick={() => setIsEmailFormOpen((prev) => !prev)}
             >
-              {open ? <HiOutlineLockOpen /> : <HiOutlineLockClosed />}
+              {isEmailFormOpen ? (
+                <HiOutlineLockOpen />
+              ) : (
+                <HiOutlineLockClosed />
+              )}
               Continue with Email
             </button>
           </form>
@@ -59,6 +63,4 @@ const Login = () => {
       </div>
     </>
   );
-};
-
-export default Login;
+}

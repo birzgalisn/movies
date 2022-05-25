@@ -1,6 +1,6 @@
 import db from "../../../lib/db";
 
-export const getPersonsPaths = async () => {
+export async function getPersonPaths() {
   const persons = await db.person.findMany({
     select: {
       id: true,
@@ -12,10 +12,9 @@ export const getPersonsPaths = async () => {
   }));
 
   return paths;
-};
+}
 
-export default async function personsPathsHandler(req, res) {
-  const paths = await getPersonsPaths();
-
+export default async function handler(_, res) {
+  const paths = await getPersonPaths();
   res.status(200).json(paths);
 }

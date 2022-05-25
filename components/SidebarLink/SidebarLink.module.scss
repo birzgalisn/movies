@@ -1,0 +1,47 @@
+@use "../../styles/colors";
+@use "../../styles/variables";
+@use "../../styles/typography";
+
+@mixin base_link {
+  display: flex;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  transition: all 0.2s ease 0s;
+
+  @include typography.body;
+
+  outline: currentcolor none medium;
+  color: colors.$dark;
+  border-radius: 5px;
+
+  &:active,
+  &:hover {
+    background-color: darken($color: colors.$light, $amount: 5);
+  }
+
+  div {
+    display: flex;
+    align-items: center;
+    padding: 0.25rem;
+
+    svg {
+      font-size: 1.5rem;
+      margin-right: (variables.$spacer / 2);
+    }
+  }
+}
+
+.regular {
+  @include base_link;
+}
+
+.active {
+  @include base_link;
+
+  background-color: lighten($color: colors.$primary, $amount: 50);
+  color: colors.$primary;
+
+  &:hover {
+    background-color: lighten($color: colors.$primary, $amount: 50);
+  }
+}

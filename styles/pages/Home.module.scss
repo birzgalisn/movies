@@ -1,15 +1,18 @@
 @use "../variables";
 @use "../colors";
+@use "../typography";
 
 .home {
   width: 100%;
-  min-height: calc(100vh - variables.$navbar-height);
+  min-height: 100vh;
+  margin-top: -(variables.$navbar-height);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
   h1 {
+    margin-top: 0;
     text-align: center;
     line-height: 1.15;
     font-size: 4rem;
@@ -17,7 +20,7 @@
     a {
       color: colors.$primary;
       text-decoration: none;
-      font-family: "Montserrat", sans-serif;
+      font-family: typography.$font-primary;
 
       &:focus,
       &:hover,
@@ -28,17 +31,11 @@
   }
 
   p {
-    margin-bottom: 4rem;
-
+    margin: 0 1rem;
     text-align: center;
     line-height: 1.5;
     font-size: 1.5rem;
-
     max-width: 48rem;
-  }
-
-  &_wrapper {
-    margin-top: 4rem;
   }
 }
 

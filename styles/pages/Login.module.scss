@@ -7,6 +7,7 @@
 .login {
   width: 100%;
   margin-top: -(variables.$navbar-height);
+
   @include mixins.center(vertical);
 
   display: flex;
@@ -54,6 +55,7 @@
       gap: (variables.$spacer / 2);
 
       @include typography.body;
+
       text-transform: uppercase;
 
       input {

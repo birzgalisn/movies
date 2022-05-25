@@ -1,73 +1,90 @@
-import Link from "next/link";
 import { useRouter } from "next/router";
+import { useMemo, useState } from "react";
 import {
   HiFilm,
   HiOutlineHome,
   HiOutlineLogin,
   HiOutlineSparkles,
 } from "react-icons/hi";
+import Select from "react-select";
+import shallow from "zustand/shallow";
+import { useStore } from "../../app/store";
+import LoadingDots from "../LoadingDots";
+import SidebarLink from "../SidebarLink";
 import styles from "./Sidebar.module.scss";
 
-const fetchImFeelingLucky = async () => {
-  const res = await fetch("/api/imfeelinglucky");
-  return await res.json();
+const fetchEvent = async () => {
+  const data = await fetch("/api/imfeelinglucky").then((res) => res.json());
+  return data;
 };
 
-const Sidebar = () => {
+export default function Sidebar() {
+  const [isLoadingEvent, setIsLoadingEvent] = useState(false);
+  const [selectedGenres, setSelectedGenres] = useStore(
+    (state) => [state.selectedGenres, state.setSelectedGenres],
+    shallow
+  );
+  const availableGenres = useStore((state) => state.availableGenres, shallow);
   const router = useRouter();
 
-  const imFeelingLucky = async () => {
-    const res = await fetchImFeelingLucky();
-    router.push(`/events/${res.id}`);
+  const availableOptions = useMemo(
+    () => availableGenres.map(({ name }) => ({ label: name, value: name })),
+    [availableGenres]
+  );
+
+  const handleLoadEvent = async () => {
+    setIsLoadingEvent((prev) => !prev);
+    const event = await fetchEvent();
+    router.push(`/events/${event}`);
+  };
+
+  const handleGenreSelectionChange = (event) => {
+    if (event.cancelable) {
+      event.preventDefault();
+    }
+    setSelectedGenres(event);
   };
 
   return (
     <div className={styles.sidebar}>
       <div className={styles.sidebar_content}>
         <div className={styles.sidebar_links}>
-          <Link href={"/"}>
-            <a>
-              <div className={styles.sibebar_links_link}>
-                <HiOutlineHome />
-                Home
-              </div>
-            </a>
-          </Link>
-          <Link href={"/events"}>
-            <a>
-              <div className={styles.sibebar_links_link}>
-                <HiFilm /> Films
-              </div>
-            </a>
-          </Link>
-          <Link href={"/login"}>
-            <a>
-              <div>
-                <HiOutlineLogin /> Login
-              </div>
-            </a>
-          </Link>
+          <SidebarLink href={"/"} text={"Home"} icon={<HiOutlineHome />} />
+          <SidebarLink href={"/events"} text={"Events"} icon={<HiFilm />} />
+          <SidebarLink
+            href={"/login"}
+            text={"Login"}
+            icon={<HiOutlineLogin />}
+          />
         </div>
 
-        {/* <div className={styles.sidebar_filter}>
-          <div className={styles.sidebar_filter_select}>
-            <p>Genre</p>
-            <div>
-              <select></select>
-              <div>
-                <HiOutlineChevronDown />
+        {router.asPath.match(/(\/events)(?!\/)/) && (
+          <>
+            <div className={styles.sidebar_genres}>
+              <div className={styles.sidebar_genres_select}>
+                <p>Genres</p>
+                <Select
+                  instanceId="genre"
+                  isMulti={true}
+                  isClearable={true}
+                  isSearchable={false}
+                  options={availableOptions}
+                  value={selectedGenres}
+                  onChange={handleGenreSelectionChange}
+                  placeholder="Select genre..."
+                />
               </div>
             </div>
-          </div>
-        </div> */}
 
-        <button className={styles.sidebar_button} onClick={imFeelingLucky}>
-          <HiOutlineSparkles />
-          I&apos;m Feeling Lucky
-        </button>
+            <div className={styles.sidebar_lucky}>
+              <button onClick={handleLoadEvent} disabled={isLoadingEvent}>
+                {isLoadingEvent ? <LoadingDots /> : <HiOutlineSparkles />}
+                I&apos;m Feeling Lucky
+              </button>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
-};
-
-export default Sidebar;
+}

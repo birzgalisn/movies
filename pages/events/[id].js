@@ -1,59 +1,71 @@
 import { format, parseISO } from "date-fns";
 import Head from "next/head";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { HiStar } from "react-icons/hi";
+import shallow from "zustand/shallow";
+import { useStore } from "../../app/store";
 import CharacterCard from "../../components/CharacterCard";
 import LinkPersons from "../../components/LinkPersons";
 import { getFirstSentence, serialize } from "../../lib/helper";
 import styles from "../../styles/pages/Event.module.scss";
-import { getEventsPaths } from "../api/events/paths";
+import { getEventPaths } from "../api/events/paths";
 import { getEvent } from "../api/events/[id]";
 
-export const getStaticPaths = async () => {
-  const paths = await getEventsPaths();
-
+export async function getStaticPaths() {
+  const paths = await getEventPaths();
   return {
     paths,
     fallback: false,
   };
-};
+}
 
-export const getStaticProps = async (ctx) => {
-  const movie = await getEvent(ctx.params.id);
-
+export async function getStaticProps(context) {
+  const event = await getEvent(context.params.id);
   return {
     props: {
-      movie: serialize(movie),
+      event: serialize(event),
     },
   };
-};
+}
 
-const Event = ({ movie }) => {
+export default function Event({ event }) {
+  const setSelectedGenres = useStore(
+    (state) => state.setSelectedGenres,
+    shallow
+  );
+  const router = useRouter();
+
+  const handleGenreClick = (genre) => {
+    setSelectedGenres([{ label: genre.name, value: genre.name }]);
+    router.replace("/events");
+  };
+
   return (
     <>
       <Head>
         <title>
-          _CINEMA &bull; {movie.title} (
-          {format(parseISO(movie.premiere), "yyyy")})
+          _CINEMA &bull; {event.title} (
+          {format(parseISO(event.premiere), "yyyy")})
         </title>
-        <meta name="description" content={getFirstSentence(movie.storyline)} />
+        <meta name="description" content={getFirstSentence(event.storyline)} />
       </Head>
 
       <div className={styles.event_wrapper}>
         <div className={styles.event}>
-          <h1>{movie.title}</h1>
+          <h1>{event.title}</h1>
           <div className={styles.event_media_wrapper}>
             <div className={styles.event_media}>
               <Image
-                src={movie.posterLink}
-                alt={`${movie.title} poster`}
+                src={event.posterLink}
+                alt={`${event.title} poster`}
                 width="243px"
                 height="432px"
                 objectFit="cover"
               />
               <iframe
-                src={movie.trailerEmbedLink}
-                title={`${movie.title} trailer`}
+                src={event.trailerEmbedLink}
+                title={`${event.title} trailer`}
                 frameBorder="0"
                 allowFullScreen
               />
@@ -61,50 +73,54 @@ const Event = ({ movie }) => {
           </div>
           <div className={styles.event_about}>
             <p>
-              {format(parseISO(movie.premiere), "MMMM d, yyyy")} &bull;{" "}
-              {movie.parentalGuide.short} &bull; {movie.length}
+              {format(parseISO(event.premiere), "MMMM d, yyyy")} &bull;{" "}
+              {event.parentalGuide.short} &bull; {event.length}
             </p>
             <div className={styles.event_about_rating}>
               <p>IMDb rating</p>
               <span className={styles.event_about_rating_stars}>
                 <HiStar />
-                <span>{movie.imdbRating}</span>
+                <span>{event.imdbRating}</span>
                 <span>/ 10</span>
               </span>
             </div>
           </div>
           <div className={styles.event_genres}>
-            {movie.genres.map((genre) => (
-              <span key={genre.id} className={styles.event_genres_genre}>
+            {event.genres.map((genre) => (
+              <span
+                key={genre.id}
+                onClick={() => handleGenreClick(genre)}
+                className={styles.event_genres_genre}
+              >
                 {genre.name}
               </span>
             ))}
           </div>
           <div className={styles.event_storyline}>
-            <p>{movie.storyline}</p>
+            <p>{event.storyline}</p>
           </div>
           <hr className={styles.line} />
           <div className={styles.event_general}>
             <div className={styles.event_general_section}>
               <h2>Directors</h2>
-              <LinkPersons persons={movie.directors} />
+              <LinkPersons persons={event.directors} />
             </div>
             <hr className={styles.line} />
             <div className={styles.event_general_section}>
               <h2>Writers</h2>
-              <LinkPersons persons={movie.writers} />
+              <LinkPersons persons={event.writers} />
             </div>
             <hr className={styles.line} />
             <div className={styles.event_general_section}>
               <h2>Stars</h2>
-              <LinkPersons persons={movie.stars} />
+              <LinkPersons persons={event.stars} />
             </div>
           </div>
           <hr className={styles.line} />
           <div className={styles.event_cast}>
             <h2>Top cast</h2>
             <div className={styles.event_cast_grid}>
-              {movie.characters.map((character) => (
+              {event.characters.map((character) => (
                 <CharacterCard key={character.id} character={character} />
               ))}
             </div>
@@ -113,6 +129,4 @@ const Event = ({ movie }) => {
       </div>
     </>
   );
-};
-
-export default Event;
+}

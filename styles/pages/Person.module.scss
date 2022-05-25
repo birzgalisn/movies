@@ -52,11 +52,13 @@
 
     h2 {
       @include typography.h2;
+
       margin-top: 0;
     }
 
     p {
       @include typography.body;
+
       width: auto;
       margin: 0;
       overflow: hidden;
@@ -88,11 +90,13 @@
 
     h3 {
       @include typography.h3;
+
       margin-top: 0;
     }
 
     p {
       @include typography.body;
+
       width: auto;
       margin: 0;
     }

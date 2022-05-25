@@ -14,7 +14,7 @@ const Navbar = () => {
         <nav className={styles.navbar}>
           <div className={styles.navbar_content}>
             <div className={styles.navbar_content_start}>
-              <Link href={"/"}>
+              <Link href={"/"} passHref>
                 <a>
                   <h1>_CINEMA</h1>
                 </a>
@@ -22,7 +22,7 @@ const Navbar = () => {
             </div>
 
             <div className={styles.navbar_content_center}>
-              <Link href={"/events"}>
+              <Link href={"/events"} passHref>
                 <a>
                   <HiFilm className={styles.navbar_content_center_icon} />
                 </a>
@@ -30,7 +30,7 @@ const Navbar = () => {
             </div>
 
             <div className={styles.navbar_content_end}>
-              <Link href={"/login"}>
+              <Link href={"/login"} passHref>
                 <a>
                   <HiOutlineLogin className={styles.navbar_content_end_icon} />
                 </a>

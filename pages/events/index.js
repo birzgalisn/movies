@@ -1,18 +1,40 @@
 import Head from "next/head";
+import { useEffect } from "react";
+import shallow from "zustand/shallow";
+import { useStore } from "../../app/store";
 import EventCard from "../../components/EventCard";
 import Sidebar from "../../components/Sidebar";
 import styles from "../../styles/pages/Events.module.scss";
 import { getEvents } from "../api/events";
+import { getGenres } from "../api/genres";
 
-export const getStaticProps = async () => {
-  const movies = await getEvents();
-
+export async function getStaticProps() {
+  const events = await getEvents();
+  const genres = await getGenres();
   return {
-    props: { movies },
+    props: { events, genres },
   };
-};
+}
 
-const Events = ({ movies }) => {
+export default function Events({ events, genres }) {
+  const [selectedGenres, setAvailableGenres] = useStore(
+    (state) => [state.selectedGenres, state.setAvailableGenres],
+    shallow
+  );
+
+  useEffect(() => {
+    setAvailableGenres(genres);
+  }, [setAvailableGenres, genres]);
+
+  const eventsToShow = selectedGenres.length
+    ? events.filter((event) =>
+        event.genres.some(
+          ({ name }) =>
+            selectedGenres.findIndex(({ label }) => label === name) !== -1
+        )
+      )
+    : events;
+
   return (
     <>
       <Head>
@@ -28,10 +50,10 @@ const Events = ({ movies }) => {
         <div className={styles.events}>
           <section className={styles.events_wrapper}>
             <div className={styles.events_content}>
-              <h1>Films</h1>
+              <h1>Events</h1>
 
               <div className={styles.events_content_grid}>
-                {movies.map((movie) => (
+                {eventsToShow.map((movie) => (
                   <EventCard key={movie.id} movie={movie} />
                 ))}
               </div>
@@ -41,6 +63,4 @@ const Events = ({ movies }) => {
       </div>
     </>
   );
-};
-
-export default Events;
+}
