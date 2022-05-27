@@ -2,6 +2,7 @@
 @use "../typography";
 @use "../colors";
 @use "../mixins";
+@use "../resets";
 
 .person {
   width: 100%;
@@ -99,6 +100,41 @@
 
       width: auto;
       margin: 0;
+    }
+  }
+
+  &_knownFor {
+    h2 {
+      @include typography.h2;
+    }
+
+    &_list {
+      width: 100%;
+      display: flex;
+      overflow-x: auto;
+      gap: 1rem;
+
+      & > a {
+        flex-shrink: 0;
+        max-width: 200px !important;
+        padding: 1rem;
+
+        & > h2 {
+          @include typography.h4;
+        }
+      }
+    }
+  }
+
+  &_filmography {
+    h2 {
+      @include typography.h2;
+    }
+
+    &_list {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
     }
   }
 }

@@ -19,7 +19,7 @@ export default function Login() {
 
       <div className={styles.login_wrapper}>
         <div className={styles.login}>
-          <h1>Log in to _CINEMA</h1>
+          <h2>Log in to _CINEMA</h2>
 
           <div className={styles.login_continue}>
             <button className={styles.login_continue_facebook}>

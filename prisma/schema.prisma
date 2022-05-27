@@ -51,6 +51,7 @@ model Movie {
   directors        Person[]            @relation("directors")
   writers          Person[]            @relation("writers")
   stars            Person[]            @relation("stars")
+  knownFor         Person[]            @relation("knownFor")
   characters       MovieCharacters[]
   media            MovieMedia[]
 }
@@ -75,4 +76,5 @@ model Person {
   directed   Movie[]           @relation("directors")
   starred    Movie[]           @relation("stars")
   written    Movie[]           @relation("writers")
+  knownFor   Movie[]           @relation("knownFor")
 }

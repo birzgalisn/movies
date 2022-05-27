@@ -1,6 +1,8 @@
 import { format, parseISO } from "date-fns";
 import Head from "next/head";
 import Image from "next/image";
+import EventCard from "../../components/EventCard";
+import FilmographySection from "../../components/FilmographySection";
 import { getFirstSentence, serialize } from "../../lib/helper";
 import styles from "../../styles/pages/Person.module.scss";
 import { getPersonPaths } from "../api/persons/paths";
@@ -68,6 +70,36 @@ export default function Person({ person }) {
                   <p>{format(parseISO(person.dateDied), "MMMM d, yyyy")}</p>
                 </div>
               )}
+            </div>
+          </div>
+
+          <div className={styles.person_knownFor}>
+            <h2>Known for</h2>
+            <div className={styles.person_knownFor_list}>
+              {person.knownFor.map((movie) => (
+                <EventCard key={movie.id} movie={movie} />
+              ))}
+            </div>
+          </div>
+
+          <div className={styles.person_filmography}>
+            <h2>Filmography</h2>
+            <div className={styles.person_filmography_list}>
+              <FilmographySection
+                open
+                title={"Directed"}
+                movies={person.directed}
+              />
+              <FilmographySection
+                open={!person.directed.length}
+                title={"Written"}
+                movies={person.written}
+              />
+              <FilmographySection
+                open={!(person.directed.length && person.written.length)}
+                title={"Starred"}
+                movies={person.starred}
+              />
             </div>
           </div>
         </div>

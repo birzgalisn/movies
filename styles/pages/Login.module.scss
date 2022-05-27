@@ -16,6 +16,10 @@
   justify-content: center;
   text-align: center;
 
+  h2 {
+    @include typography.h2;
+  }
+
   &_wrapper {
     position: relative;
     width: 100%;

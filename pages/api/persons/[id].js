@@ -1,34 +1,63 @@
 import db from "../../../lib/db";
 
 export async function getPerson(id) {
-  const selectMovieInfo = {
-    select: {
-      id: true,
-      title: true,
-      posterLink: true,
-      storyline: true,
-    },
+  const parsedActorId = parseInt(id);
+
+  const movieInfo = {
+    id: true,
+    title: true,
+    storyline: true,
   };
 
   const actor = await db.person.findFirst({
     where: {
-      id: parseInt(id),
+      id: parsedActorId,
     },
     include: {
-      characters: {
+      // characters: {
+      //   select: {
+      //     id: true,
+      //     name: true,
+      //     movie: {
+      //       select: {
+      //         id: true,
+      //         title: true,
+      //       },
+      //     },
+      //   },
+      // },
+      knownFor: {
         select: {
-          name: true,
-          movie: {
+          ...movieInfo,
+          posterLink: true,
+        },
+      },
+      directed: {
+        select: {
+          ...movieInfo,
+          premiere: true,
+        },
+      },
+      written: {
+        select: {
+          ...movieInfo,
+          premiere: true,
+        },
+      },
+      starred: {
+        select: {
+          ...movieInfo,
+          premiere: true,
+          characters: {
             select: {
-              id: true,
-              title: true,
+              name: true,
+            },
+            where: {
+              actorId: parsedActorId,
             },
           },
         },
       },
-      directed: selectMovieInfo,
-      written: selectMovieInfo,
-      starred: selectMovieInfo,
     },
   });
 

@@ -1,0 +1,68 @@
+@use "../../styles/typography";
+@use "../../styles/themables";
+@use "../../styles/colors";
+@use "../../styles/mixins";
+
+.filmography_section {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  &_head {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+
+    h3 {
+      @include typography.h3;
+
+      margin: 0;
+    }
+
+    button {
+      @include themables.button($filled: false);
+
+      margin-left: 0.5rem;
+      max-width: 100px;
+      min-width: max-content;
+      width: 100%;
+    }
+  }
+
+  &_list {
+    margin-left: 0.75rem;
+
+    @include mixins.respond-to("sm") {
+      margin-left: 1.5rem;
+    }
+  }
+
+  &_movie {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid colors.$border;
+    padding-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
+    transition: color 0.15s ease, border-color 0.15s ease;
+
+    h4 {
+      @include typography.h4;
+
+      margin: 0;
+    }
+
+    p {
+      @include typography.body;
+
+      margin: 0;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    &:hover {
+      color: colors.$primary;
+    }
+  }
+}
