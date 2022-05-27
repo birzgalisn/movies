@@ -73,14 +73,16 @@ export default function Person({ person }) {
             </div>
           </div>
 
-          <div className={styles.person_knownFor}>
-            <h2>Known for</h2>
-            <div className={styles.person_knownFor_list}>
-              {person.knownFor.map((movie) => (
-                <EventCard key={movie.id} movie={movie} />
-              ))}
+          {person.knownFor.length && (
+            <div className={styles.person_knownFor}>
+              <h2>Known for</h2>
+              <div className={styles.person_knownFor_list}>
+                {person.knownFor.map((movie) => (
+                  <EventCard key={movie.id} movie={movie} />
+                ))}
+              </div>
             </div>
-          </div>
+          )}
 
           <div className={styles.person_filmography}>
             <h2>Filmography</h2>
