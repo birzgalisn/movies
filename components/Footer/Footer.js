@@ -1,7 +1,7 @@
 import Link from "next/link";
 import styles from "./Footer.module.scss";
 
-const Footer = () => {
+export default function Footer() {
   return (
     <footer className={styles.footer_wrapper}>
       <div className={styles.footer}>
@@ -13,6 +13,4 @@ const Footer = () => {
       </div>
     </footer>
   );
-};
-
-export default Footer;
+}

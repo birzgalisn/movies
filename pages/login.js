@@ -2,6 +2,7 @@ import Head from "next/head";
 import { useState } from "react";
 import { FaApple, FaFacebookF } from "react-icons/fa";
 import { HiOutlineLockClosed, HiOutlineLockOpen } from "react-icons/hi";
+import Layout from "../components/Layout/Layout";
 import styles from "../styles/pages/Login.module.scss";
 
 export default function Login() {
@@ -12,7 +13,7 @@ export default function Login() {
   };
 
   return (
-    <>
+    <Layout>
       <Head>
         <title>_CINEMA &bull; Login</title>
       </Head>
@@ -61,6 +62,6 @@ export default function Login() {
           </form>
         </div>
       </div>
-    </>
+    </Layout>
   );
 }

@@ -1,10 +1,12 @@
+import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { useState } from "react";
 import { HiFilm, HiOutlineLogin, HiOutlineMenu } from "react-icons/hi";
+import { variants } from "../../lib/framer";
 import Sidebar from "../Sidebar";
 import styles from "./Navbar.module.scss";
 
-const Navbar = () => {
+export default function Navbar() {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const toggleIsMobileOpen = () => setIsMobileOpen((prev) => !prev);
 
@@ -46,22 +48,29 @@ const Navbar = () => {
         </nav>
       </div>
 
-      {isMobileOpen && (
-        <div className={styles.mobile_portal_wrapper}>
-          <div className={styles.mobile_portal}>
-            <div className={styles.mobile_portal_content}>
-              <Sidebar />
-            </div>
+      <AnimatePresence exitBeforeEnter initial={false}>
+        {isMobileOpen && (
+          <div className={styles.mobile_portal_wrapper}>
+            <motion.div
+              initial="hidden"
+              animate="enter"
+              exit="exit"
+              variants={variants}
+              transition={{ type: "linear" }}
+              className={styles.mobile_portal}
+            >
+              <div className={styles.mobile_portal_content}>
+                <Sidebar />
+              </div>
 
-            <div
-              className={styles.mobile_portal_close}
-              onClick={toggleIsMobileOpen}
-            ></div>
+              <div
+                className={styles.mobile_portal_close}
+                onClick={toggleIsMobileOpen}
+              ></div>
+            </motion.div>
           </div>
-        </div>
-      )}
+        )}
+      </AnimatePresence>
     </>
   );
-};
-
-export default Navbar;
+}

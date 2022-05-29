@@ -6,6 +6,7 @@ import { HiStar } from "react-icons/hi";
 import shallow from "zustand/shallow";
 import { useStore } from "../../app/store";
 import CharacterCard from "../../components/CharacterCard";
+import Layout from "../../components/Layout/Layout";
 import LinkPersons from "../../components/LinkPersons";
 import { getFirstSentence, serialize } from "../../lib/helper";
 import styles from "../../styles/pages/Event.module.scss";
@@ -42,7 +43,7 @@ export default function Event({ event }) {
   };
 
   return (
-    <>
+    <Layout>
       <Head>
         <title>
           _CINEMA &bull; {event.title} (
@@ -127,6 +128,6 @@ export default function Event({ event }) {
           </div>
         </div>
       </div>
-    </>
+    </Layout>
   );
 }

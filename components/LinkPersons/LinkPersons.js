@@ -1,7 +1,7 @@
 import Link from "next/link";
 import styles from "./LinkPersons.module.scss";
 
-const LinkPersons = ({ persons }) => {
+export default function LinkPersons({ persons }) {
   return (
     <div className={styles.link_wrapper}>
       {persons
@@ -13,6 +13,4 @@ const LinkPersons = ({ persons }) => {
         .reduce((prev, curr) => [prev, ", ", curr])}
     </div>
   );
-};
-
-export default LinkPersons;
+}

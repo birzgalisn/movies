@@ -1,11 +1,20 @@
+import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { variants } from "../../lib/framer";
 import styles from "./EventCard.module.scss";
 
-const EventCard = ({ movie }) => {
+export default function EventCard({ movie }) {
   return (
     <Link href={`/events/${movie.id}`} passHref>
-      <a className={styles.card}>
+      <motion.a
+        initial="hidden"
+        animate="enter"
+        exit="exit"
+        variants={variants}
+        transition={{ type: "linear" }}
+        className={styles.card}
+      >
         <Image
           src={movie.posterLink}
           alt={`${movie.title} poster`}
@@ -16,9 +25,7 @@ const EventCard = ({ movie }) => {
         />
         <h2>{movie.title}&nbsp;&rarr;</h2>
         <p>{movie.storyline}</p>
-      </a>
+      </motion.a>
     </Link>
   );
-};
-
-export default EventCard;
+}

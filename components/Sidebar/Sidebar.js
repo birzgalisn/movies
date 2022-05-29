@@ -42,6 +42,7 @@ export default function Sidebar() {
     if (event.cancelable) {
       event.preventDefault();
     }
+    document.getElementById("events").scrollIntoView();
     setSelectedGenres(event);
   };
 

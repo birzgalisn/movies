@@ -1,8 +1,10 @@
+import { AnimatePresence } from "framer-motion";
 import Head from "next/head";
 import { useEffect } from "react";
 import shallow from "zustand/shallow";
 import { useStore } from "../../app/store";
 import EventCard from "../../components/EventCard";
+import Layout from "../../components/Layout/Layout";
 import Sidebar from "../../components/Sidebar";
 import styles from "../../styles/pages/Events.module.scss";
 import { getEvents } from "../api/events";
@@ -42,25 +44,27 @@ export default function Events({ events, genres }) {
         <meta name="description" content="Now playing exclusively in _CINEMA" />
       </Head>
 
-      <div>
-        <div className={styles.events_sidebar_wrapper}>
-          <Sidebar />
-        </div>
+      <div className={styles.events_sidebar_wrapper}>
+        <Sidebar />
+      </div>
 
+      <Layout>
         <div className={styles.events}>
           <section className={styles.events_wrapper}>
             <div className={styles.events_content}>
-              <h1>Events</h1>
+              <h1 id="events">Events</h1>
 
               <div className={styles.events_content_grid}>
-                {eventsToShow.map((movie) => (
-                  <EventCard key={movie.id} movie={movie} />
-                ))}
+                <AnimatePresence exitBeforeEnter initial={false}>
+                  {eventsToShow.map((movie) => (
+                    <EventCard key={movie.id} movie={movie} />
+                  ))}
+                </AnimatePresence>
               </div>
             </div>
           </section>
         </div>
-      </div>
+      </Layout>
     </>
   );
 }

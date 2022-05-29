@@ -1,10 +1,11 @@
 import Head from "next/head";
 import Link from "next/link";
+import Layout from "../components/Layout/Layout";
 import styles from "../styles/pages/Home.module.scss";
 
 export default function Home() {
   return (
-    <>
+    <Layout>
       <Head>
         <title>_CINEMA &bull; Home</title>
         <meta
@@ -31,6 +32,6 @@ export default function Home() {
           </p>
         </section>
       </div>
-    </>
+    </Layout>
   );
 }

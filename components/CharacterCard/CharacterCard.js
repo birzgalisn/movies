@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from "./CharacterCard.module.scss";
 
-const CharacterCard = ({ character }) => {
+export default function CharacterCard({ character }) {
   return (
     <Link href={`/persons/${character.actor.id}`}>
       <a className={styles.character}>
@@ -21,6 +21,4 @@ const CharacterCard = ({ character }) => {
       </a>
     </Link>
   );
-};
-
-export default CharacterCard;
+}

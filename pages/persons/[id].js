@@ -3,6 +3,7 @@ import Head from "next/head";
 import Image from "next/image";
 import EventCard from "../../components/EventCard";
 import FilmographySection from "../../components/FilmographySection";
+import Layout from "../../components/Layout/Layout";
 import { getFirstSentence, serialize } from "../../lib/helper";
 import styles from "../../styles/pages/Person.module.scss";
 import { getPersonPaths } from "../api/persons/paths";
@@ -27,7 +28,7 @@ export async function getStaticProps(context) {
 
 export default function Person({ person }) {
   return (
-    <>
+    <Layout>
       <Head>
         <title>_CINEMA &bull; {person.name}</title>
         <meta name="description" content={getFirstSentence(person.bio)} />
@@ -106,6 +107,6 @@ export default function Person({ person }) {
           </div>
         </div>
       </div>
-    </>
+    </Layout>
   );
 }
