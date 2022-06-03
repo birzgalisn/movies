@@ -1,6 +1,7 @@
 @use "../../styles/variables";
 @use "../../styles/mixins";
 @use "../../styles/colors";
+@use "../../styles/typography";
 
 .navbar {
   width: 100%;
@@ -46,6 +47,17 @@
 
     & > div {
       flex: 1;
+
+      a {
+        @include typography.body;
+
+        display: flex;
+        align-items: center;
+
+        svg {
+          margin-right: 0.75rem;
+        }
+      }
     }
 
     &_start {

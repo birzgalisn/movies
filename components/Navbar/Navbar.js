@@ -27,6 +27,7 @@ export default function Navbar() {
               <Link href={"/events"} passHref>
                 <a>
                   <HiFilm className={styles.navbar_content_center_icon} />
+                  &nbsp;Events
                 </a>
               </Link>
             </div>
@@ -35,6 +36,7 @@ export default function Navbar() {
               <Link href={"/login"} passHref>
                 <a>
                   <HiOutlineLogin className={styles.navbar_content_end_icon} />
+                  &nbsp;Login
                 </a>
               </Link>
             </div>
