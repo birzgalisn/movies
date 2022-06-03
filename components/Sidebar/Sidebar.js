@@ -66,6 +66,8 @@ export default function Sidebar() {
                 <p>Genres</p>
                 <Select
                   instanceId="genre"
+                  name="genre"
+                  aria-label="genre"
                   isMulti={true}
                   isClearable={true}
                   isSearchable={false}

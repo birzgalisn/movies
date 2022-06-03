@@ -43,7 +43,7 @@ export default function Navbar() {
 
             <div className={styles.mobile_navbar}>
               <button onClick={toggleIsMobileOpen}>
-                <HiOutlineMenu />
+                <HiOutlineMenu aria-label="menu" />
               </button>
             </div>
           </div>
